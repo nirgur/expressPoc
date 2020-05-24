@@ -11,6 +11,6 @@ const validationSchema = [check('testString')
   .exists()
 ]
 
-router.get('/:testString', validationSchema, withValidation, controllers.getHello)
+router.get('/:testString', withValidation(validationSchema), controllers.getHello)
 
 module.exports = router;

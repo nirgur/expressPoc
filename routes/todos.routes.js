@@ -13,14 +13,15 @@ const bodySchema = [
     .exists()
 ]
 
-const paramsSchema = [param('id')
+const paramsSchema = [
+  param('id')
   .isNumeric().withMessage("Must be a number")
   .exists(),
 ]
 
-router.post('/', bodySchema, withValidation, controllers.create)
+router.post('/', withValidation(bodySchema), controllers.create)
 router.get('/', controllers.getAll)
-router.put('/:id', [...bodySchema, paramsSchema], withValidation, controllers.update)
-router.delete('/:id', paramsSchema, withValidation, controllers.delete)
+router.put('/:id', withValidation([...bodySchema, ...paramsSchema]), controllers.update)
+router.delete('/:id', withValidation(paramsSchema), controllers.delete)
 
 module.exports = router;
